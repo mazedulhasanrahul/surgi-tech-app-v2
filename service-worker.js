@@ -1,9 +1,10 @@
-const CACHE_NAME = 'surgitech-v2';
+const CACHE_NAME = 'surgitech-v1';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
     './bill.html',
     './quotation.html',
+    './receipt.html',
     './manifest.json',
     // Caching images from both locations based on your HTML code
     './surgi.png',

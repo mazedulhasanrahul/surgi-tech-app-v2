@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Money Receipt - Surgitech & Care BD</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tiro+Bangla&display=swap');
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f3f4f6;
+        }
+        
+        .bangla-font {
+            font-family: 'Tiro Bangla', serif;
+        }
+        
+        .text-brand {
+            color: #2e3192;
+        }
+        
+        .bg-brand {
+            background-color: #2e3192;
+        }
+        
+        input,
+        textarea {
+            outline: none;
+            background: transparent;
+            z-index: 10;
+            position: relative;
+        }
+        /* Print Styles */
+        
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+                /* Removing browser default margins completely */
+            }
+            html,
+            body {
+                width: 210mm;
+                height: 297mm;
+                background-color: white;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+            }
+            .no-print {
+                display: none !important;
+            }
+            #receipt {
+                box-shadow: none !important;
+                margin: 0 !important;
+                padding: 10mm !important;
+                /* Safe padding for print */
+                width: 210mm !important;
+                height: 296mm !important;
+                /* 1mm smaller than A4 to strictly prevent 2nd page */
+                min-height: auto !important;
+                page-break-after: avoid !important;
+                page-break-inside: avoid !important;
+            }
+            input,
+            textarea {
+                border: none !important;
+                resize: none;
+                pointer-events: none;
+                color: black !important;
+            }
+            .print-border-hide {
+                border-color: transparent !important;
+            }
+            /* Force exact colors & watermark when printing */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="flex justify-center py-10 print:py-0">
+
+    <!-- Main Receipt Container (A4 Proportions) -->
+    <div class="bg-white w-[210mm] h-[297mm] p-10 shadow-2xl relative overflow-hidden" id="receipt">
+
+        <!-- Background Watermark Logo -->
+        <img src="img/icon-192.png" alt="Watermark" class="absolute inset-0 m-auto w-[450px] h-[450px] object-contain opacity-[0.06] pointer-events-none z-0">
+
+        <!-- Header -->
+        <div class="flex justify-between items-start pb-4 relative z-10">
+            <!-- Logo Section -->
+            <div class="w-1/4 flex items-center">
+                <img src="img/icon-192.png" alt="Surgitech Logo" class="w-24 h-24 object-contain">
+            </div>
+
+            <!-- Company Info Section -->
+            <div class="w-2/4 text-center">
+                <h1 class="text-[32px] font-bold text-brand bangla-font leading-tight">সার্জিটেক এন্ড কেয়ার বিডি</h1>
+                <h2 class="text-2xl font-bold text-brand tracking-wide">SURGITECH & CARE BD</h2>
+                <p class="text-[15px] font-semibold text-brand">(Medical Equipement System)</p>
+                <p class="text-[15px] text-brand bangla-font mt-1">শংকর, ধানমন্ডি, ঢাকা-১২০৯</p>
+
+                <div class="mt-2 text-[13px] font-bold flex justify-center gap-1 items-center">
+                    <span class="bg-[#e2136e] text-white px-1.5 py-0.5 rounded z-10">bkash</span>
+                    <span class="bg-[#f58220] text-white px-1.5 py-0.5 rounded z-10">Nagad</span>
+                    <span class="text-brand tracking-wider ml-1">01409-352022, 01319722155</span>
+                </div>
+
+                <p class="text-[13px] text-brand mt-1.5 relative z-10 bg-white/50">
+                    E-mail: mdashikhasanbd1020@gmail.com, Web: www.surgitechcarebd.com
+                </p>
+            </div>
+
+            <div class="w-1/4"></div>
+            <!-- Flex Balancer -->
+        </div>
+
+        <!-- Date & Receipt No -->
+        <div class="flex justify-end mt-2 mb-6 text-[17px] font-semibold text-black relative z-10">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-end justify-end">
+                    <span class="mr-2">Date :</span>
+                    <input type="text" class="border-b border-black w-40 text-center font-bold pb-1" placeholder="DD / MM / YYYY">
+                </div>
+                <div class="flex items-end justify-end">
+                    <span class="mr-2">Receipt No. :</span>
+                    <input type="text" class="border-b border-black w-40 text-center font-bold pb-1" placeholder="SC-0001-2026">
+                </div>
+            </div>
+        </div>
+
+        <!-- Title -->
+        <div class="text-center mb-10 relative z-10">
+            <h2 class="text-[34px] font-bold text-brand tracking-widest uppercase bg-white/70 inline-block px-4">Money Receipt</h2>
+        </div>
+
+        <!-- Form Fields -->
+        <div class="space-y-7 text-[19px] text-black relative z-10">
+            <div class="flex items-end">
+                <span class="whitespace-nowrap mr-3 bg-white/60">Received with thanks from :</span>
+                <input type="text" class="flex-grow border-b border-black font-semibold pb-1 pl-2">
+            </div>
+            <div class="flex items-end">
+                <span class="whitespace-nowrap mr-3 bg-white/60">Address :</span>
+                <input type="text" class="flex-grow border-b border-black font-semibold pb-1 pl-2">
+            </div>
+            <div class="flex items-end">
+                <span class="whitespace-nowrap mr-3 bg-white/60">On account of :</span>
+                <input type="text" class="flex-grow border-b border-black font-semibold pb-1 pl-2">
+            </div>
+            <div class="flex items-start">
+                <span class="whitespace-nowrap mr-3 mt-1 bg-white/60">Purpose :</span>
+                <!-- Textarea allows for multiple lines -->
+                <textarea class="flex-grow border-b border-black font-semibold pb-1 pl-2 resize-none overflow-hidden leading-relaxed" rows="1"></textarea>
+            </div>
+            <div class="flex items-end">
+                <span class="whitespace-nowrap mr-3 bg-white/60">Payment Mode (Cash/Chq/Bank) :</span>
+                <input type="text" class="flex-grow border-b border-black font-semibold pb-1 pl-2" value="Cash">
+            </div>
+            <div class="flex items-start">
+                <span class="whitespace-nowrap mr-3 bg-white/60">Amount in words :</span>
+                <div id="amountWords" class="flex-grow border-b border-black font-semibold pb-1 pl-2 min-h-[30px] break-words"></div>
+            </div>
+        </div>
+
+        <!-- Amount Box (Bottom Right) -->
+        <div class="flex justify-end mt-12 mb-20 relative z-10">
+            <div class="bg-brand rounded-xl p-3 w-80 text-white shadow-md">
+                <p class="mb-1 text-sm pl-1 font-semibold">Amount in figures :</p>
+                <div class="bg-white rounded-md p-2 flex items-center text-black font-bold text-2xl print-border-hide border border-gray-300">
+                    <span class="mr-2 ml-1 text-xl">Taka</span>
+                    <input type="text" id="amountInput" class="flex-grow text-right w-24 border-none text-2xl tracking-wide" placeholder="0">
+                    <span class="ml-1 text-xl">.00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Signatures Section -->
+        <div class="flex justify-between mt-auto px-6 font-bold text-[19px] text-brand bangla-font absolute bottom-16 w-[calc(100%-80px)] z-10">
+            <div class="text-center">
+                <div class="border-t-[3px] border-brand w-48 pt-2">ক্রেতার স্বাক্ষর</div>
+                <div class="text-sm font-normal font-sans mt-1">(Payer's Signature)</div>
+            </div>
+            <div class="text-center">
+                <div class="border-t-[3px] border-brand w-48 pt-2">বিক্রেতার স্বাক্ষর</div>
+                <div class="text-sm font-normal font-sans mt-1">(Authorized Signature)</div>
+            </div>
+        </div>
+
+        <!-- Footer Policy -->
+        <div class="absolute bottom-0 left-0 w-full bg-brand text-white text-center py-2.5 text-[15px] bangla-font tracking-wide z-10">
+            যদি মেরামতকৃত মেশিন দুই মাসের মধ্যে না নেওয়া হয় তবে কর্তৃপক্ষ সে মেশিনের জন্য দায়বদ্ধ থাকিবে না।
+        </div>
+    </div>
+
+    <!-- Web Controls (Hidden during print) -->
+    <div class="no-print fixed top-10 right-10 flex flex-col gap-4 z-50">
+        <button onclick="window.print()" class="bg-brand text-white px-8 py-4 rounded-xl shadow-2xl hover:bg-blue-800 font-bold text-lg flex items-center justify-center gap-2 transition-all transform hover:scale-105">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" /></svg>
+            Print Receipt
+        </button>
+        <div class="bg-white p-4 rounded-xl shadow-lg border-l-4 border-blue-500 max-w-xs">
+            <p class="text-sm text-gray-600 font-medium">💡 <strong>Smart Feature:</strong> Type the number in the "Amount in figures" box, and the English words will generate automatically.</p>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // অটোমেটিক আজকের তারিখ সেট করা
+        document.addEventListener("DOMContentLoaded", function() {
+            const today = new Date().toLocaleDateString('en-GB'); // DD/MM/YYYY ফরম্যাট
+            document.querySelector('input[placeholder="DD / MM / YYYY"]').value = today;
+        }); // 1. Auto-expand Textarea for "Purpose" field
+        const textareas = document.getElementsByTagName("textarea");
+        for (let i = 0; i < textareas.length; i++) {
+            textareas[i].addEventListener("input", function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + "px";
+            }, false);
+        }
+
+        // 2. Number to Words Logic (South Asian Indian Numbering System)
+        function numberToWords(num) {
+            if (num === 0) return 'Zero';
+
+            const ones = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ', 'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '];
+            const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+            function convert(n) {
+                if (n < 20) return ones[n];
+                if (n < 100) return tens[Math.floor(n / 10)] + (n % 10 !== 0 ? '-' + ones[n % 10] : ' ');
+                if (n < 1000) return ones[Math.floor(n / 100)] + 'Hundred ' + (n % 100 !== 0 ? 'and ' + convert(n % 100) : '');
+                if (n < 100000) return convert(Math.floor(n / 1000)) + 'Thousand ' + (n % 1000 !== 0 ? convert(n % 1000) : '');
+                if (n < 10000000) return convert(Math.floor(n / 100000)) + 'Lakh ' + (n % 100000 !== 0 ? convert(n % 100000) : '');
+                return convert(Math.floor(n / 10000000)) + 'Crore ' + (n % 10000000 !== 0 ? convert(n % 10000000) : '');
+            }
+
+            let cleanedNum = parseInt(num.toString().replace(/,/g, ''), 10);
+            if (isNaN(cleanedNum)) return '';
+            return convert(cleanedNum).trim() + ' Taka Only';
+        }
+
+        // 3. Format Number with Commas and Trigger Word Conversion
+        const amountInput = document.getElementById('amountInput');
+        const amountWords = document.getElementById('amountWords');
+
+        amountInput.addEventListener('input', function(e) {
+            // Remove everything except numbers
+            let rawValue = e.target.value.replace(/,/g, '').replace(/[^0-9]/g, '');
+
+            if (rawValue) {
+                // Format with South Asian commas (e.g. 1,50,000)
+                let formatted = Number(rawValue).toLocaleString('en-IN');
+                e.target.value = formatted;
+
+                // Update the words input field
+                document.getElementById('amountWords').innerText = numberToWords(rawValue);
+            } else {
+                e.target.value = '';
+                amountWords.value = '';
+            }
+        });
+    </script>
+</body>
+
+</html>

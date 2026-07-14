@@ -43,7 +43,6 @@
             @page {
                 size: A4;
                 margin: 0;
-                /* Removing browser default margins completely */
             }
             html,
             body {
@@ -61,10 +60,8 @@
                 box-shadow: none !important;
                 margin: 0 !important;
                 padding: 10mm !important;
-                /* Safe padding for print */
                 width: 210mm !important;
                 height: 296mm !important;
-                /* 1mm smaller than A4 to strictly prevent 2nd page */
                 min-height: auto !important;
                 page-break-after: avoid !important;
                 page-break-inside: avoid !important;
@@ -79,7 +76,6 @@
             .print-border-hide {
                 border-color: transparent !important;
             }
-            /* Force exact colors & watermark when printing */
             * {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
@@ -88,130 +84,127 @@
     </style>
 </head>
 
-<body class="flex justify-center py-10 print:py-0">
+<body class="flex justify-center p-2 sm:p-5 md:py-10 print:py-0 print:p-0">
 
-    <!-- Main Receipt Container (A4 Proportions) -->
-    <div class="bg-white w-[210mm] h-[297mm] p-10 shadow-2xl relative overflow-hidden" id="receipt">
+    <!-- Main Receipt Container (A4 Proportions on Desktop/Print, Fluid on Mobile) -->
+    <div class="bg-white w-full max-w-[210mm] md:w-[210mm] print:w-[210mm] h-auto md:h-[297mm] print:h-[297mm] p-4 sm:p-6 md:p-10 print:p-10 shadow-2xl relative overflow-hidden" id="receipt">
 
         <!-- Background Watermark Logo -->
-        <img src="img/icon-192.png" alt="Watermark" class="absolute inset-0 m-auto w-[450px] h-[450px] object-contain opacity-[0.06] pointer-events-none z-0">
+        <img src="img/icon-192.png" alt="Watermark" class="absolute inset-0 m-auto w-[250px] h-[250px] md:w-[450px] md:h-[450px] print:w-[450px] print:h-[450px] object-contain opacity-[0.06] pointer-events-none z-0">
 
         <!-- Header -->
-        <div class="flex justify-between items-start pb-4 relative z-10">
+        <div class="flex flex-col md:flex-row print:flex-row justify-between items-center md:items-start print:items-start pb-4 relative z-10 gap-4 md:gap-0 print:gap-0">
             <!-- Logo Section -->
-            <div class="w-1/4 flex items-center">
-                <img src="img/icon-192.png" alt="Surgitech Logo" class="w-24 h-24 object-contain">
+            <div class="w-full md:w-1/4 print:w-1/4 flex justify-center md:justify-start print:justify-start">
+                <img src="img/icon-192.png" alt="Surgitech Logo" class="w-20 h-20 md:w-24 md:h-24 print:w-24 print:h-24 object-contain">
             </div>
 
             <!-- Company Info Section -->
-            <div class="w-2/4 text-center">
-                <h1 class="text-[32px] font-bold text-brand bangla-font leading-tight">সার্জিটেক এন্ড কেয়ার বিডি</h1>
-                <h2 class="text-2xl font-bold text-brand tracking-wide">SURGITECH & CARE BD</h2>
-                <p class="text-[15px] font-semibold text-brand">(Medical Equipement System)</p>
-                <p class="text-[15px] text-brand bangla-font mt-1">শংকর, ধানমন্ডি, ঢাকা-১২০৯</p>
+            <div class="w-full md:w-2/4 print:w-2/4 text-center">
+                <h1 class="text-[22px] sm:text-[26px] md:text-[32px] print:text-[32px] font-bold text-brand bangla-font leading-tight">সার্জিটেক এন্ড কেয়ার বিডি</h1>
+                <h2 class="text-[18px] sm:text-[20px] md:text-2xl print:text-2xl font-bold text-brand tracking-wide">SURGITECH & CARE BD</h2>
+                <p class="text-[12px] md:text-[15px] print:text-[15px] font-semibold text-brand">(Medical Equipement System)</p>
+                <p class="text-[13px] md:text-[15px] print:text-[15px] text-brand bangla-font mt-1">শংকর, ধানমন্ডি, ঢাকা-১২০৯</p>
 
-                <div class="mt-2 text-[13px] font-bold flex justify-center gap-1 items-center">
+                <div class="mt-2 text-[11px] md:text-[13px] print:text-[13px] font-bold flex flex-wrap justify-center gap-1 items-center">
                     <span class="bg-[#e2136e] text-white px-1.5 py-0.5 rounded z-10">bkash</span>
                     <span class="bg-[#f58220] text-white px-1.5 py-0.5 rounded z-10">Nagad</span>
-                    <span class="text-brand tracking-wider ml-1">01409-352022, 01319722155</span>
+                    <span class="text-brand tracking-wider ml-1 mt-1 sm:mt-0 print:mt-0">01409-352022, 01319722155</span>
                 </div>
 
-                <p class="text-[13px] text-brand mt-1.5 relative z-10 bg-white/50">
+                <p class="text-[11px] md:text-[13px] print:text-[13px] text-brand mt-1.5 relative z-10 bg-white/50 px-1">
                     E-mail: mdashikhasanbd1020@gmail.com, Web: www.surgitechcarebd.com
                 </p>
             </div>
 
-            <div class="w-1/4"></div>
+            <div class="hidden md:block print:block w-1/4"></div>
             <!-- Flex Balancer -->
         </div>
 
         <!-- Date & Receipt No -->
-        <div class="flex justify-end mt-2 mb-6 text-[17px] font-semibold text-black relative z-10">
-            <div class="flex flex-col gap-2">
-                <div class="flex items-end justify-end">
-                    <span class="mr-2">Date :</span>
-                    <input type="text" class="border-b border-black w-40 text-center font-bold pb-1" placeholder="DD / MM / YYYY">
+        <div class="flex justify-center md:justify-end print:justify-end mt-2 md:mt-4 print:mt-2 mb-6 text-[15px] md:text-[17px] print:text-[17px] font-semibold text-black relative z-10">
+            <div class="flex flex-col sm:flex-row md:flex-col print:flex-col gap-2 sm:gap-4 md:gap-2 print:gap-2 w-full sm:w-auto">
+                <div class="flex items-center sm:items-end justify-between sm:justify-end w-full sm:w-auto">
+                    <span class="mr-2 whitespace-nowrap">Date :</span>
+                    <input type="text" class="border-b border-black w-32 sm:w-40 text-center font-bold pb-1 bg-transparent" placeholder="DD / MM / YYYY">
                 </div>
-                <div class="flex items-end justify-end">
-                    <span class="mr-2">Receipt No. :</span>
-                    <input type="text" class="border-b border-black w-40 text-center font-bold pb-1" placeholder="SC-0001-2026">
+                <div class="flex items-center sm:items-end justify-between sm:justify-end w-full sm:w-auto">
+                    <span class="mr-2 whitespace-nowrap">Receipt No. :</span>
+                    <input type="text" class="border-b border-black w-32 sm:w-40 text-center font-bold pb-1 bg-transparent" placeholder="SC-0001-2026">
                 </div>
             </div>
         </div>
 
         <!-- Title -->
-        <div class="text-center mb-10 relative z-10">
-            <h2 class="text-[34px] font-bold text-brand tracking-widest uppercase bg-white/70 inline-block px-4">Money Receipt</h2>
+        <div class="text-center mb-8 md:mb-10 print:mb-10 relative z-10">
+            <h2 class="text-[22px] md:text-[34px] print:text-[34px] font-bold text-brand tracking-widest uppercase bg-white/70 inline-block px-3 md:px-4 print:px-4">Money Receipt</h2>
         </div>
 
         <!-- Form Fields -->
-        <div class="space-y-7 text-[19px] text-black relative z-10">
-            <div class="flex items-end">
-                <span class="whitespace-nowrap mr-3 bg-white/60">Received with thanks from :</span>
-                <input type="text" class="flex-grow border-b border-black font-semibold pb-1 pl-2">
+        <div class="space-y-5 md:space-y-7 print:space-y-7 text-[15px] md:text-[19px] print:text-[19px] text-black relative z-10">
+            <div class="flex flex-col md:flex-row print:flex-row md:items-end print:items-end">
+                <span class="whitespace-nowrap mr-0 md:mr-3 print:mr-3 mb-1 md:mb-0 print:mb-0 bg-white/60">Received with thanks from :</span>
+                <input type="text" class="flex-grow border-b border-black font-semibold pb-1 pl-0 md:pl-2 print:pl-2 w-full">
             </div>
-            <div class="flex items-end">
-                <span class="whitespace-nowrap mr-3 bg-white/60">Address :</span>
-                <input type="text" class="flex-grow border-b border-black font-semibold pb-1 pl-2">
+            <div class="flex flex-col md:flex-row print:flex-row md:items-end print:items-end">
+                <span class="whitespace-nowrap mr-0 md:mr-3 print:mr-3 mb-1 md:mb-0 print:mb-0 bg-white/60">Address :</span>
+                <input type="text" class="flex-grow border-b border-black font-semibold pb-1 pl-0 md:pl-2 print:pl-2 w-full">
             </div>
-            <div class="flex items-end">
-                <span class="whitespace-nowrap mr-3 bg-white/60">On account of :</span>
-                <input type="text" class="flex-grow border-b border-black font-semibold pb-1 pl-2">
+            <div class="flex flex-col md:flex-row print:flex-row md:items-end print:items-end">
+                <span class="whitespace-nowrap mr-0 md:mr-3 print:mr-3 mb-1 md:mb-0 print:mb-0 bg-white/60">On account of :</span>
+                <input type="text" class="flex-grow border-b border-black font-semibold pb-1 pl-0 md:pl-2 print:pl-2 w-full">
             </div>
-            <div class="flex items-start">
-                <span class="whitespace-nowrap mr-3 mt-1 bg-white/60">Purpose :</span>
+            <div class="flex flex-col md:flex-row print:flex-row md:items-start print:items-start">
+                <span class="whitespace-nowrap mr-0 md:mr-3 print:mr-3 mt-1 bg-white/60">Purpose :</span>
                 <!-- Textarea allows for multiple lines -->
-                <textarea class="flex-grow border-b border-black font-semibold pb-1 pl-2 resize-none overflow-hidden leading-relaxed" rows="1"></textarea>
+                <textarea class="flex-grow border-b border-black font-semibold pb-1 pl-0 md:pl-2 print:pl-2 resize-none overflow-hidden leading-relaxed w-full" rows="1"></textarea>
             </div>
-            <div class="flex items-end">
-                <span class="whitespace-nowrap mr-3 bg-white/60">Payment Mode (Cash/Chq/Bank) :</span>
-                <input type="text" class="flex-grow border-b border-black font-semibold pb-1 pl-2" value="Cash">
+            <div class="flex flex-col md:flex-row print:flex-row md:items-end print:items-end">
+                <span class="whitespace-nowrap mr-0 md:mr-3 print:mr-3 mb-1 md:mb-0 print:mb-0 bg-white/60">Payment Mode (Cash/Chq/Bank) :</span>
+                <input type="text" class="flex-grow border-b border-black font-semibold pb-1 pl-0 md:pl-2 print:pl-2 w-full" value="Cash">
             </div>
-            <div class="flex items-start">
-                <span class="whitespace-nowrap mr-3 bg-white/60">Amount in words :</span>
-                <div id="amountWords" class="flex-grow border-b border-black font-semibold pb-1 pl-2 min-h-[30px] break-words"></div>
+            <div class="flex flex-col md:flex-row print:flex-row md:items-start print:items-start">
+                <span class="whitespace-nowrap mr-0 md:mr-3 print:mr-3 mb-1 md:mb-0 print:mb-0 bg-white/60">Amount in words :</span>
+                <div id="amountWords" class="flex-grow border-b border-black font-semibold pb-1 pl-0 md:pl-2 print:pl-2 min-h-[24px] md:min-h-[30px] print:min-h-[30px] break-words w-full"></div>
             </div>
         </div>
 
         <!-- Amount Box (Bottom Right) -->
-        <div class="flex justify-end mt-12 mb-20 relative z-10">
-            <div class="bg-brand rounded-xl p-3 w-80 text-white shadow-md">
+        <div class="flex justify-center md:justify-end print:justify-end mt-10 md:mt-12 print:mt-12 mb-12 md:mb-20 print:mb-20 relative z-10">
+            <div class="bg-brand rounded-xl p-3 w-full max-w-sm md:w-80 print:w-80 text-white shadow-md">
                 <p class="mb-1 text-sm pl-1 font-semibold">Amount in figures :</p>
-                <div class="bg-white rounded-md p-2 flex items-center text-black font-bold text-2xl print-border-hide border border-gray-300">
-                    <span class="mr-2 ml-1 text-xl">Taka</span>
-                    <input type="text" id="amountInput" class="flex-grow text-right w-24 border-none text-2xl tracking-wide" placeholder="0">
-                    <span class="ml-1 text-xl">.00</span>
+                <div class="bg-white rounded-md p-1.5 md:p-2 print:p-2 flex items-center justify-between md:justify-start print:justify-start text-black font-bold text-xl md:text-2xl print:text-2xl print-border-hide border border-gray-300">
+                    <span class="mr-1 md:mr-2 print:mr-2 ml-1 text-lg md:text-xl print:text-xl">Taka</span>
+                    <input type="text" id="amountInput" class="flex-grow text-center md:text-right print:text-right w-20 md:w-24 print:w-24 border-none text-xl md:text-2xl print:text-2xl tracking-wide min-w-[100px]" placeholder="0">
+                    <span class="ml-1 text-lg md:text-xl print:text-xl">.00</span>
                 </div>
             </div>
         </div>
 
         <!-- Signatures Section -->
-        <div class="flex justify-between mt-auto px-6 font-bold text-[19px] text-brand bangla-font absolute bottom-16 w-[calc(100%-80px)] z-10">
+        <div class="flex justify-between mt-8 md:mt-auto print:mt-auto px-0 md:px-6 print:px-6 font-bold text-[15px] sm:text-[17px] md:text-[19px] print:text-[19px] text-brand bangla-font relative md:absolute print:absolute bottom-0 md:bottom-16 print:bottom-16 w-full md:w-[calc(100%-80px)] print:w-[calc(100%-80px)] z-10 pb-14 md:pb-0 print:pb-0 left-0 md:left-10 print:left-10">
             <div class="text-center">
-                <div class="border-t-[3px] border-brand w-48 pt-2">ক্রেতার স্বাক্ষর</div>
-                <div class="text-sm font-normal font-sans mt-1">(Payer's Signature)</div>
+                <div class="border-t-[2px] md:border-t-[3px] print:border-t-[3px] border-brand w-32 sm:w-40 md:w-48 print:w-48 pt-2 mx-auto">ক্রেতার স্বাক্ষর</div>
+                <div class="text-xs md:text-sm print:text-sm font-normal font-sans mt-1">(Payer's Signature)</div>
             </div>
             <div class="text-center">
-                <div class="border-t-[3px] border-brand w-48 pt-2">বিক্রেতার স্বাক্ষর</div>
-                <div class="text-sm font-normal font-sans mt-1">(Authorized Signature)</div>
+                <div class="border-t-[2px] md:border-t-[3px] print:border-t-[3px] border-brand w-32 sm:w-40 md:w-48 print:w-48 pt-2 mx-auto">বিক্রেতার স্বাক্ষর</div>
+                <div class="text-xs md:text-sm print:text-sm font-normal font-sans mt-1">(Authorized Signature)</div>
             </div>
         </div>
 
         <!-- Footer Policy -->
-        <div class="absolute bottom-0 left-0 w-full bg-brand text-white text-center py-2.5 text-[15px] bangla-font tracking-wide z-10">
+        <div class="absolute bottom-0 left-0 w-full bg-brand text-white text-center py-2 md:py-2.5 print:py-2.5 text-[11px] sm:text-[13px] md:text-[15px] print:text-[15px] bangla-font tracking-wide z-10 px-1">
             যদি মেরামতকৃত মেশিন দুই মাসের মধ্যে না নেওয়া হয় তবে কর্তৃপক্ষ সে মেশিনের জন্য দায়বদ্ধ থাকিবে না।
         </div>
     </div>
 
     <!-- Web Controls (Hidden during print) -->
-    <div class="no-print fixed top-10 right-10 flex flex-col gap-4 z-50">
-        <button onclick="window.print()" class="bg-brand text-white px-8 py-4 rounded-xl shadow-2xl hover:bg-blue-800 font-bold text-lg flex items-center justify-center gap-2 transition-all transform hover:scale-105">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" /></svg>
+    <div class="no-print fixed bottom-4 right-4 md:top-10 md:right-10 md:bottom-auto flex flex-col gap-3 md:gap-4 z-50 items-end">
+        <button onclick="window.print()" class="bg-brand text-white px-5 py-3 md:px-8 md:py-4 print:px-8 print:py-4 rounded-xl shadow-2xl hover:bg-blue-800 font-bold text-sm md:text-lg print:text-lg flex items-center justify-center gap-2 transition-all transform hover:scale-105">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" /></svg>
             Print Receipt
         </button>
-        <div class="bg-white p-4 rounded-xl shadow-lg border-l-4 border-blue-500 max-w-xs">
-            <p class="text-sm text-gray-600 font-medium">💡 <strong>Smart Feature:</strong> Type the number in the "Amount in figures" box, and the English words will generate automatically.</p>
-        </div>
     </div>
 
     <!-- JavaScript Logic -->
